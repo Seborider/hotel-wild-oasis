@@ -8,6 +8,7 @@ import PageNotFound from "./pages/PageNotFound.tsx";
 import Settings from "./pages/Settings.tsx";
 import Users from "./pages/Users.tsx";
 import GlobalStyles from "./styles/GlobalStyles.ts";
+import AppLayout from "./ui/AppLayout.tsx";
 
 export default function App() {
   return (
@@ -15,14 +16,16 @@ export default function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route index element={<Navigate replace to="dashboard" />} />
-          <Route element={<Dashboard />} path="dashboard" />
-          <Route element={<Account />} path="account" />
-          <Route element={<Bookings />} path="bookings" />
-          <Route element={<Cabins />} path="cabins" />
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route element={<Dashboard />} path="dashboard" />
+            <Route element={<Account />} path="account" />
+            <Route element={<Bookings />} path="bookings" />
+            <Route element={<Cabins />} path="cabins" />
+            <Route element={<Settings />} path="settings" />
+            <Route element={<Users />} path="users" />
+          </Route>
           <Route element={<Login />} path="login" />
-          <Route element={<Settings />} path="settings" />
-          <Route element={<Users />} path="users" />
           <Route element={<PageNotFound />} path="*" />
         </Routes>
       </BrowserRouter>
