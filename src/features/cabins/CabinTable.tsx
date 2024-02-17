@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getCabins } from "../../services/apiCabins.ts";
 import Spinner from "../../ui/Spinner.tsx";
 import CabinRow from "./CabinRow.tsx";
+import ErrorFallback from "../../ui/ErrorFallback.tsx";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -32,9 +33,10 @@ function CabinTable() {
     isLoading,
     data: cabins,
     error,
-  } = useQuery({ queryKey: ["cabin"], queryFn: getCabins });
+  } = useQuery({ queryKey: ["cabins"], queryFn: getCabins });
 
   if (isLoading) return <Spinner />;
+  if (error) return <ErrorFallback />;
 
   return (
     <Table role="table">
