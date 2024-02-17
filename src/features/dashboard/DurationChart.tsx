@@ -14,7 +14,6 @@ import Heading from 'ui/Heading';
 const ChartBox = styled.div`
   ${box}
   padding: 2.4rem 3.2rem;
-
   grid-column: 3 / span 2;
 
   & .recharts-pie-label-text {

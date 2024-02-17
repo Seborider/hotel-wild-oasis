@@ -3,11 +3,9 @@ import styled, { css } from "styled-components";
 const StyledFormRow = styled.div`
   display: grid;
   align-items: center;
-
   grid-template-columns: ${(props) =>
     props.orientation === "vertical" ? "1fr" : "24rem 1fr 1.2fr"};
   gap: ${(props) => (props.orientation === "vertical" ? "0.8rem" : "2.4rem")};
-
   padding: 1.2rem 0;
 
   &:first-child {

@@ -1,6 +1,11 @@
 import styled, { css } from "styled-components";
+import React from "react";
 
-const Row = styled.div`
+interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
+  type?: "horizontal" | "vertical";
+}
+
+const Row = styled.div<RowProps>`
   display: flex;
 
   ${(props) =>

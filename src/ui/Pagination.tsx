@@ -29,7 +29,6 @@ const PaginationButton = styled.button`
   border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
-
   display: flex;
   align-items: center;
   justify-content: center;

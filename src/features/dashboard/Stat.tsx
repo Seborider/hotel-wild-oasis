@@ -8,8 +8,7 @@ const StyledStat = styled.div`
   display: grid;
   grid-template-columns: 6.4rem 1fr;
   grid-template-rows: auto auto;
-  column-gap: 1.6rem;
-  row-gap: 0.4rem;
+  gap: 0.4rem 1.6rem;
 `;
 
 const Icon = styled.div`
@@ -43,6 +42,7 @@ const Value = styled.p`
   font-size: 2.4rem;
   line-height: 1;
   font-weight: 500;
+
   /* color: var(--color-grey-600); */
 `;
 
