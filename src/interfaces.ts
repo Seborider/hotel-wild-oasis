@@ -3,7 +3,7 @@ export interface CabinType {
   description: string;
   discount: number;
   id?: number;
-  image: string;
+  image: string | File;
   maxCapacity: number;
   name: string;
   regularPrice: number;
