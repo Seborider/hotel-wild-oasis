@@ -1,6 +1,19 @@
 import styled, { css } from "styled-components";
+import React from "react";
 
-const StyledFormRow = styled.div`
+interface StyledFormRow {
+  orientation: string;
+}
+
+interface FormRowProps {
+  label?: string;
+  error?: string;
+  children?: React.ReactNode;
+  orientation?: string;
+  disabled?: boolean;
+}
+
+const StyledFormRow = styled.div<StyledFormRow>`
   display: grid;
   align-items: center;
   grid-template-columns: ${(props) =>
@@ -44,10 +57,16 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-function FormRow({ label, error, children, orientation }) {
+function FormRow({
+  label,
+  error,
+  children,
+  orientation,
+  id,
+}: FormRowProps & { id?: string }) {
   return (
-    <StyledFormRow orientation={orientation}>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+    <StyledFormRow orientation={orientation!}>
+      {label && id && <Label htmlFor={id}>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>
