@@ -5,6 +5,9 @@ import { formatCurrency } from "../../utils/helpers.ts";
 import Button from "../../ui/Button.tsx";
 import CreateCabinForm from "./CreateCabinForm.tsx";
 import { CabinType } from "../../interfaces.ts";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { useCabinMutation } from "./useCabinMutation.ts";
+import { createCabin } from "../../services/apiCabins.ts";
 
 const TableRow = styled.div`
   display: grid;
@@ -60,6 +63,7 @@ interface CabinRowProps {
 function CabinRow({ cabin }: CabinRowProps) {
   const [showEditForm, setShowEditForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isSubmitting, mutate } = useCabinMutation({ operation: createCabin });
 
   const {
     image,
@@ -68,7 +72,19 @@ function CabinRow({ cabin }: CabinRowProps) {
     maxCapacity,
     regularPrice,
     id: cabinId,
+    description,
   } = cabin;
+
+  function handleDuplicateCabin() {
+    mutate({
+      name: `Copy of ${name}`,
+      image,
+      discount,
+      description,
+      regularPrice,
+      maxCapacity,
+    });
+  }
 
   return (
     <>
@@ -88,7 +104,15 @@ function CabinRow({ cabin }: CabinRowProps) {
             size="small"
             variation="secondary"
           >
-            Edit
+            <HiPencil />
+          </Button>
+          <Button
+            onClick={handleDuplicateCabin}
+            size="small"
+            variation="secondary"
+            disabled={isSubmitting}
+          >
+            <HiSquare2Stack />
           </Button>
 
           <Button
@@ -97,7 +121,7 @@ function CabinRow({ cabin }: CabinRowProps) {
             onClick={() => deleteCabin(Number(cabinId))}
             disabled={isDeleting}
           >
-            Delete
+            <HiTrash />
           </Button>
         </ButtonRow>
       </TableRow>

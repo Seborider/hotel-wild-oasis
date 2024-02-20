@@ -25,22 +25,27 @@ export async function deleteCabin(id: number) {
 export async function createCabin(newCabin: CabinType) {
   let imageName;
   let fileToUpload: File | null = null;
+  let imagePath;
 
-  if (typeof newCabin.image === "string") {
+  if (
+    typeof newCabin.image === "string" &&
+    newCabin.image.startsWith(supabaseUrl)
+  ) {
+    imagePath = newCabin.image;
+  } else if (typeof newCabin.image === "string") {
     imageName = newCabin.image;
   } else if (newCabin.image instanceof File) {
     imageName = `${Math.random()}-${newCabin.image.name}`.replace("/", "");
     fileToUpload = newCabin.image;
+    imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
   } else {
     throw new Error("Invalid image format");
   }
 
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
-
   const { data, error } = await supabase
     .from("cabins")
     .insert([{ ...newCabin, image: imagePath }])
-    .select();
+    .single();
 
   if (error) {
     console.error(error);
@@ -53,7 +58,7 @@ export async function createCabin(newCabin: CabinType) {
       .upload(imageName, fileToUpload);
 
     if (storageError) {
-      await supabase.from("cabins").delete().eq("id", newCabin.id);
+      await supabase.from("cabins").delete().match({ id: data.id });
       console.error(storageError);
       throw new Error(
         "Cabin image could not be uploaded and the cabin was not created",
@@ -61,7 +66,7 @@ export async function createCabin(newCabin: CabinType) {
     }
   }
 
-  return data as CabinType[];
+  return { ...data, image: imagePath };
 }
 
 export async function editCabin(id: number, updatedCabin: CabinType) {
@@ -93,7 +98,7 @@ export async function editCabin(id: number, updatedCabin: CabinType) {
     const { error: storageError } = await supabase.storage
       .from("cabin-images")
       .upload(imageName, fileToUpload, {
-        upsert: true, // This will overwrite the file if it already exists
+        upsert: true,
       });
 
     if (storageError) {
@@ -102,6 +107,5 @@ export async function editCabin(id: number, updatedCabin: CabinType) {
     }
   }
 
-  // Assuming successful update, return the updated cabin data
   return { ...updatedCabin, image: imagePath };
 }

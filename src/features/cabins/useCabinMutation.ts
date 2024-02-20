@@ -3,9 +3,9 @@ import toast from "react-hot-toast";
 import { CabinType } from "../../interfaces.ts";
 
 interface UseCabinMutationProps {
-  isEditSession: boolean;
-  operation: (id?: string, data?: CabinType) => Promise<CabinType>;
-  editId?: string;
+  isEditSession?: boolean;
+  operation: (id?: number, data?: CabinType) => Promise<CabinType>;
+  editId?: number;
 }
 
 export function useCabinMutation({
