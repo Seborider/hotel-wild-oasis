@@ -1,5 +1,4 @@
 import { FieldErrors, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -8,16 +7,15 @@ import FileInput from "../../ui/FileInput";
 import { Textarea } from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CabinType } from "../../interfaces.ts";
 import { createCabin, editCabin } from "../../services/apiCabins.ts";
+import { useCabinMutation } from "./useCabinMutation.ts";
 
 interface CreateCabinFormProps {
   cabinToEdit?: CabinType;
 }
 
 function CreateCabinForm({ cabinToEdit = {} }: CreateCabinFormProps) {
-  const queryQlient = useQueryClient();
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, getValues, formState } =
@@ -25,31 +23,19 @@ function CreateCabinForm({ cabinToEdit = {} }: CreateCabinFormProps) {
       defaultValues: isEditSession ? editValues : {},
     });
   const { errors } = formState;
-  const operation = isEditSession ? editCabin : createCabin;
-  const successMessage = isEditSession
-    ? "Cabin successfully updated"
-    : "New cabin successfully created";
 
-  const { isLoading: isSubmitting, mutate } = useMutation({
-    mutationFn: isEditSession
-      ? (newCabinData: CabinType) => operation(editId!, newCabinData)
-      : operation,
-    onSuccess: () => {
-      toast.success(successMessage);
-      void queryQlient.invalidateQueries({ queryKey: ["cabins"] });
-      reset();
-    },
-    onError: (err: Error) => {
-      toast.error(err.message);
-    },
+  const { isSubmitting, mutate } = useCabinMutation({
+    isEditSession,
+    operation: isEditSession ? editCabin : createCabin,
+    editId,
   });
 
   function onSubmit(data: CabinType) {
     const formData: CabinType = { ...data, image: data?.image[0] };
     if (isEditSession) {
-      mutate({ ...formData, id: editId });
+      mutate({ ...formData, id: editId }, { onSuccess: () => reset() });
     } else {
-      mutate(formData);
+      mutate(formData, { onSuccess: () => reset() });
     }
   }
 
@@ -125,7 +111,6 @@ function CreateCabinForm({ cabinToEdit = {} }: CreateCabinFormProps) {
         error={errors?.description?.message}
       >
         <Textarea
-          disabled={isSubmitting}
           id="description"
           defaultValue=""
           {...register("description", { required: "This field is required" })}

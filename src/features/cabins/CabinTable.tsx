@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
-import { getCabins } from "../../services/apiCabins.ts";
+import { useCabins } from "./useCabins.ts";
+
 import Spinner from "../../ui/Spinner.tsx";
 import CabinRow from "./CabinRow.tsx";
 import ErrorFallback from "../../ui/ErrorFallback.tsx";
@@ -29,11 +29,7 @@ const TableHeader = styled.header`
 `;
 
 function CabinTable() {
-  const {
-    isLoading,
-    data: cabins,
-    error,
-  } = useQuery({ queryKey: ["cabins"], queryFn: getCabins });
+  const { isLoading, cabins, error } = useCabins();
 
   if (isLoading) return <Spinner />;
   if (error) return <ErrorFallback />;
@@ -44,8 +40,8 @@ function CabinTable() {
         <div></div>
         <div>Cabin</div>
         <div>Capacity</div>
-        <div>Discount</div>
         <div>Price</div>
+        <div>Discount</div>
         <div></div>
       </TableHeader>
       {cabins?.map((cabin) => <CabinRow key={cabin.id} cabin={cabin} />)}

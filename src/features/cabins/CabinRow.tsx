@@ -1,12 +1,10 @@
-import styled from "styled-components";
-import { CabinType } from "../../interfaces.ts";
-import { formatCurrency } from "../../utils/helpers.ts";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins.ts";
-import toast from "react-hot-toast";
-import Button from "../../ui/Button.tsx";
 import { useState } from "react";
+import styled from "styled-components";
+import { useDeleteCabin } from "./useDeleteCabin.ts";
+import { formatCurrency } from "../../utils/helpers.ts";
+import Button from "../../ui/Button.tsx";
 import CreateCabinForm from "./CreateCabinForm.tsx";
+import { CabinType } from "../../interfaces.ts";
 
 const TableRow = styled.div`
   display: grid;
@@ -61,6 +59,8 @@ interface CabinRowProps {
 
 function CabinRow({ cabin }: CabinRowProps) {
   const [showEditForm, setShowEditForm] = useState(false);
+  const { isDeleting, deleteCabin } = useDeleteCabin();
+
   const {
     image,
     discount,
@@ -69,26 +69,19 @@ function CabinRow({ cabin }: CabinRowProps) {
     regularPrice,
     id: cabinId,
   } = cabin;
-  const queryClient = useQueryClient();
 
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success("Cabin successfully deleted");
-      void queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-    },
-    onError: (err: Error) => toast.error(err.message),
-  });
   return (
     <>
       <TableRow>
         <Img src={String(image)} />
         <Cabin>{name}</Cabin>
         <div>Fits up to {maxCapacity} guests</div>
-        <Discount>{formatCurrency(Number(discount))}</Discount>
         <Price>{formatCurrency(Number(regularPrice))}</Price>
+        {discount ? (
+          <Discount>{formatCurrency(Number(discount))}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
         <ButtonRow>
           <Button
             onClick={() => setShowEditForm(!showEditForm)}
@@ -101,7 +94,7 @@ function CabinRow({ cabin }: CabinRowProps) {
           <Button
             size="small"
             variation="danger"
-            onClick={() => mutate(Number(cabinId))}
+            onClick={() => deleteCabin(Number(cabinId))}
             disabled={isDeleting}
           >
             Delete
