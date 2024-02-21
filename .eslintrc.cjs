@@ -32,6 +32,7 @@ module.exports = {
         "@typescript-eslint/no-unsafe-member-access": "warn",
         "@typescript-eslint/no-misused-promises": "warn",
         "@typescript-eslint/no-unnecessary-type-assertion": "warn",
-        "@typescript-eslint/no-floating-promises": "warn"
+        "@typescript-eslint/no-floating-promises": "warn",
+        "@typescript-eslint/no-empty-function": "warn"
     }
 };
