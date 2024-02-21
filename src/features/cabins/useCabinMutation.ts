@@ -4,7 +4,7 @@ import { CabinType } from "../../interfaces.ts";
 
 interface UseCabinMutationProps {
   isEditSession?: boolean;
-  operation: (id?: number, data?: CabinType) => Promise<CabinType>;
+  operation: (editId?: number, newCabinData?: CabinType) => Promise<CabinType>;
   editId?: number;
 }
 

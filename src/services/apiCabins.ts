@@ -66,7 +66,7 @@ export async function createCabin(newCabin: CabinType) {
     }
   }
 
-  return { ...data, image: imagePath };
+  return { ...(data as CabinType), image: imagePath };
 }
 
 export async function editCabin(id: number, updatedCabin: CabinType) {
