@@ -5,7 +5,11 @@ import styled, { css } from "styled-components";
 //   ${10 > 5 && "background-color: yellow"}
 // `;
 
-const Heading = styled.h1`
+interface HeadingProps {
+  type: "h1" | "h2" | "h3";
+}
+
+const Heading = styled.h1<HeadingProps>`
   ${(props) =>
     props.as === "h1" &&
     css`

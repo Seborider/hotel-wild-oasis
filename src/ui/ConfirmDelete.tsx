@@ -2,6 +2,13 @@ import styled from "styled-components";
 import Button from "./Button.js";
 import Heading from "./Heading";
 
+interface ConfirmDeleteProps {
+  resource?: string;
+  onConfirm: () => void;
+  disabled?: boolean;
+  onCloseModal?: () => void;
+}
+
 const StyledConfirmDelete = styled.div`
   width: 40rem;
   display: flex;
@@ -20,9 +27,12 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({ resource, onConfirm, disabled, closeModal }) {
-  function handleConfirmClick() {}
-
+function ConfirmDelete({
+  resource,
+  onConfirm,
+  disabled,
+  onCloseModal,
+}: ConfirmDeleteProps) {
   return (
     <StyledConfirmDelete>
       <Heading type="h3">Delete {resource}</Heading>
@@ -32,14 +42,10 @@ function ConfirmDelete({ resource, onConfirm, disabled, closeModal }) {
       </p>
 
       <div>
-        <Button variation="secondary" onClick={closeModal}>
+        <Button variation="secondary" onClick={onCloseModal}>
           Cancel
         </Button>
-        <Button
-          variation="danger"
-          onClick={handleConfirmClick}
-          disabled={disabled}
-        >
+        <Button variation="danger" onClick={onConfirm} disabled={disabled}>
           Delete
         </Button>
       </div>

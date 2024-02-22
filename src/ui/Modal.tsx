@@ -22,6 +22,12 @@ interface OpenProps {
   opens?: string;
 }
 
+interface ContextProps {
+  openName: string;
+  close: () => void;
+  open: (opensWindowName: string) => void;
+}
+
 const StyledModal = styled.div`
   position: fixed;
   top: 50%;
@@ -67,12 +73,6 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
-
-interface ContextProps {
-  openName: string;
-  close: () => void;
-  open: (opensWindowName: string) => void;
-}
 
 const ModalContext = createContext<ContextProps>({
   openName: "",
@@ -126,4 +126,5 @@ function Window({ children, name }: ModalProps) {
 
 Modal.Open = Open;
 Modal.Window = Window;
+
 export default Modal;
