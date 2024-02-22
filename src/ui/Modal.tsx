@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
+import { useOutideClick } from "../hooks/useOutsideClick";
 
 interface ModalProps {
   children: ReactNode;
@@ -102,17 +103,17 @@ function isReactElement(child: ReactNode): child is ReactElement {
 
 function Window({ children, name }: ModalProps) {
   const { openName, close } = useContext(ModalContext);
+  const ref = useOutideClick(close);
 
   if (name !== openName) return null;
 
-  // Ensure children is a ReactElement before cloning
   const content = isReactElement(children)
     ? cloneElement(children, { onCloseModal: close })
     : children;
 
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
