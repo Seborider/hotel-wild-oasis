@@ -5,7 +5,7 @@ import UpdateSettingsForm from "../features/settings/UpdateSettingsForm.tsx";
 function Settings() {
   return (
     <Row>
-      <Heading as="h1">Update hotel settings</Heading>;
+      <Heading type="h1">Update hotel settings</Heading>
       <UpdateSettingsForm />
     </Row>
   );
