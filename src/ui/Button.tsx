@@ -3,7 +3,7 @@ import React from "react";
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   size?: "small" | "medium" | "large";
-  variation?: "primary" | "secondary" | "danger";
+  $variation?: "primary" | "secondary" | "danger";
 }
 
 const sizes = {
@@ -61,11 +61,11 @@ const Button = styled.button<ButtonProps>`
   box-shadow: var(--shadow-sm);
 
   ${(props) => sizes[props.size ?? "medium"]}
-  ${(props) => variations[props.variation ?? "primary"]}
+  ${(props) => variations[props.$variation ?? "primary"]}
 `;
 
 Button.defaultProps = {
-  variation: "primary",
+  $variation: "primary",
   size: "medium",
 };
 

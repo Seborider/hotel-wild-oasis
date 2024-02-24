@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
-import { useOutideClick } from "../hooks/useOutsideClick";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 interface ModalProps {
   children: ReactNode;
@@ -83,7 +83,7 @@ const ModalContext = createContext<ContextProps>({
 function Modal({ children }: ModalProps) {
   const [openName, setOpenName] = useState("");
   const close = () => setOpenName("");
-  const open = (opensWindowName: string) => setOpenName(opensWindowName); // Explicit type
+  const open = (opensWindowName: string) => setOpenName(opensWindowName);
 
   return (
     <ModalContext.Provider value={{ openName, close, open }}>
@@ -103,7 +103,7 @@ function isReactElement(child: ReactNode): child is ReactElement {
 
 function Window({ children, name }: ModalProps) {
   const { openName, close } = useContext(ModalContext);
-  const ref = useOutideClick(close);
+  const ref = useOutsideClick(close);
 
   if (name !== openName) return null;
 

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 type Handler = () => void;
 
-export function useOutideClick(handler: Handler, listenCapturing = true) {
+export function useOutsideClick(handler: Handler, listenCapturing = true) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
