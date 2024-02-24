@@ -2,18 +2,18 @@ import { useCabins } from "./useCabins.ts";
 
 import Spinner from "../../ui/Spinner.tsx";
 import CabinRow from "./CabinRow.tsx";
-import ErrorFallback from "../../ui/ErrorFallback.tsx";
 import Table from "../../ui/Table.tsx";
 import { CabinType } from "../../interfaces.ts";
 import Menus from "../../ui/Menus.tsx";
 import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty.tsx";
 
 function CabinTable() {
-  const { isLoading, cabins, error } = useCabins();
+  const { isLoading, cabins } = useCabins();
   const [searchParams] = useSearchParams();
 
   if (isLoading) return <Spinner />;
-  if (error) return <ErrorFallback />;
+  if (!cabins?.length) return <Empty resource="cabins" />;
 
   //1. Filter
 

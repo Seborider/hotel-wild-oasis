@@ -29,3 +29,43 @@ export interface SettingsRows {
   maxGuestsPerBooking: number;
   breakfastPrice: number;
 }
+
+export interface BookingType {
+  id?: number;
+  created_at?: string;
+  startDate?: string;
+  endDate?: string;
+  numNights?: number;
+  numGuests?: number;
+  cabinPrice?: number;
+  extrasPrice?: number;
+  totalPrice?: number;
+  status?: string;
+  hasBreakfast?: boolean;
+  isPaid?: true;
+  observations?: string;
+  cabinId: number;
+  guestId: number;
+}
+
+export interface BookingResponse {
+  id: number;
+  created_at: string;
+  startDate: string;
+  endDate: string;
+  numNights: number;
+  numGuests: number;
+  status: string;
+  totalPrice: string;
+  cabins: Cabins;
+  guests: Guests;
+}
+
+interface Cabins {
+  name: string;
+}
+
+interface Guests {
+  email: string;
+  fullName: string;
+}
