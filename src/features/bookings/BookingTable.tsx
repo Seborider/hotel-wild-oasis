@@ -25,7 +25,7 @@ function BookingTable() {
         </Table.Header>
 
         <Table.Body
-          data={bookings}
+          data={bookings!}
           render={(booking) => (
             <BookingRow key={booking.id} booking={booking} />
           )}

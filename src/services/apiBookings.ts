@@ -2,12 +2,40 @@ import { BookingResponse, BookingType } from "../interfaces";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
-export async function getBookings(): Promise<BookingResponse[]> {
-  const { data, error } = await supabase
+type FilterType = {
+  field: string;
+  value: string;
+} | null;
+
+interface SortByType {
+  field: string;
+  direction: "asc" | "desc";
+}
+
+export async function getBookings({
+  filter,
+  sortBy,
+}: {
+  filter: FilterType;
+  sortBy: SortByType;
+}): Promise<BookingResponse[]> {
+  let query = supabase
     .from("bookings")
     .select(
       "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)",
     );
+
+  // 1. Filter
+  if (filter) query = query.eq(filter.field, filter.value);
+
+  // 2. Sort
+  if (sortBy)
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
+
+  const { data, error } = await query;
+
   if (error) {
     console.error(error);
     throw new Error("Cabins could not be loaded");

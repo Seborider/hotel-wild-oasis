@@ -49,16 +49,16 @@ export interface BookingType {
 }
 
 export interface BookingResponse {
-  id: number;
-  created_at: string;
-  startDate: string;
-  endDate: string;
-  numNights: number;
-  numGuests: number;
-  status: string;
-  totalPrice: string;
-  cabins: Cabins;
-  guests: Guests;
+  id?: number;
+  created_at?: string;
+  startDate?: string;
+  endDate?: string;
+  numNights?: number;
+  numGuests?: number;
+  status?: string;
+  totalPrice?: string;
+  cabins?: Cabins;
+  guests?: Guests;
 }
 
 interface Cabins {
