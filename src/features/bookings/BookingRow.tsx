@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Table from "../../ui/Table";
 import Tag from "../../ui/Tag";
 import { BookingResponse } from "../../interfaces";
-import { format, formatDate, isToday } from "date-fns";
+import { format, isToday } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 
 // v1
@@ -64,7 +64,7 @@ function BookingRow({
   },
 }: BookingRowProps) {
   const statusToTagName = {
-    unconfirmed: "blue",
+    "un-confirmed": "blue",
     "checked-in": "green",
     "checked-out:": "silver",
   };
