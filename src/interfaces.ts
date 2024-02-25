@@ -57,15 +57,15 @@ export interface BookingResponse {
   numGuests?: number;
   status?: string;
   totalPrice?: string;
-  cabins?: Cabins;
-  guests?: Guests;
+  cabins: Cabins;
+  guests: Guests;
 }
 
 interface Cabins {
-  name: string;
+  name?: string;
 }
 
 interface Guests {
-  email: string;
-  fullName: string;
+  email?: string;
+  fullName?: string;
 }

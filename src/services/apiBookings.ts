@@ -9,7 +9,7 @@ type FilterType = {
 
 interface SortByType {
   field: string;
-  direction: "asc" | "desc";
+  direction: string;
 }
 
 export async function getBookings({
@@ -89,7 +89,7 @@ export async function getStaysAfterDate(date: string) {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data;
+  return data as BookingResponse;
 }
 
 // Activity means that there is a check in or a check out today
@@ -110,10 +110,10 @@ export async function getStaysTodayActivity() {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
-  return data;
+  return data as BookingResponse;
 }
 
-export async function updateBooking(id, obj) {
+export async function updateBooking(id: number, obj: BookingResponse) {
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)
@@ -125,10 +125,10 @@ export async function updateBooking(id, obj) {
     console.error(error);
     throw new Error("Booking could not be updated");
   }
-  return data;
+  return data as BookingResponse;
 }
 
-export async function deleteBooking(id) {
+export async function deleteBooking(id: number) {
   // REMEMBER RLS POLICIES
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
 
