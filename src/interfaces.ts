@@ -64,6 +64,11 @@ export interface BookingKa {
   numGuests?: number;
   status?: string;
   totalPrice?: string;
+  cabinPrice?: number;
+  extrasPrice?: number;
+  hasBreakfast?: boolean;
+  observations?: "string";
+  isPaid: boolean;
   cabins: Cabins;
   guests: Guests;
 }
@@ -75,4 +80,7 @@ interface Cabins {
 interface Guests {
   email?: string;
   fullName?: string;
+  country?: string;
+  countryFlag?: string;
+  nationalID?: string;
 }

@@ -42,10 +42,10 @@ function ConfirmDelete({
       </p>
 
       <div>
-        <Button variation="secondary" onClick={onCloseModal}>
+        <Button $variation="secondary" onClick={onCloseModal}>
           Cancel
         </Button>
-        <Button variation="danger" onClick={onConfirm} disabled={disabled}>
+        <Button $variation="danger" onClick={onConfirm} disabled={disabled}>
           Delete
         </Button>
       </div>

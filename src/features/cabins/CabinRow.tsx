@@ -66,7 +66,7 @@ function CabinRow({ cabin }: CabinRowProps) {
       description,
       regularPrice,
       maxCapacity,
-    });
+    } as CabinType);
   }
 
   return (

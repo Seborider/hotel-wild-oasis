@@ -4,19 +4,10 @@ import Tag from "../../ui/Tag";
 import { BookingKa } from "../../interfaces";
 import { format, isToday } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
-
-// v1
-// const TableRow = styled.div`
-//   display: grid;
-//   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-//   column-gap: 2.4rem;
-//   align-items: center;
-//   padding: 1.4rem 2.4rem;
-
-//   &:not(:last-child) {
-//     border-bottom: 1px solid var(--color-grey-100);
-//   }
-// `;
+import Menus from "../../ui/Menus";
+import { useNavigate } from "react-router-dom";
+import { HiEye } from "react-icons/hi2";
+import Modal from "../../ui/Modal";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -51,6 +42,7 @@ interface BookingRowProps {
 
 function BookingRow({
   booking: {
+    id: bookingId,
     startDate,
     endDate,
     numNights,
@@ -60,6 +52,8 @@ function BookingRow({
     cabins: { name: cabinName },
   },
 }: BookingRowProps) {
+  const navigate = useNavigate();
+
   const statusToTagName = {
     "un-confirmed": "blue",
     "checked-in": "green",
@@ -89,6 +83,20 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", "")}</Tag>
 
       <Amount>{formatCurrency(Number(totalPrice))}</Amount>
+
+      <Modal>
+        <Menus.Menu>
+          <Menus.Toggle id={bookingId!} />
+          <Menus.List id={bookingId!}>
+            <Menus.Button
+              icon={<HiEye />}
+              onClick={() => navigate(`/bookings/${bookingId}`)}
+            >
+              See details
+            </Menus.Button>
+          </Menus.List>
+        </Menus.Menu>
+      </Modal>
     </Table.Row>
   );
 }

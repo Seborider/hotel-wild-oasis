@@ -10,7 +10,7 @@ function Bookings() {
         <Heading type="h1">All bookings</Heading>
         <BookingTableOperations />
       </Row>
-      <BookingTable></BookingTable>
+      <BookingTable />
     </>
   );
 }
