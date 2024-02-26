@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Table from "../../ui/Table";
 import Tag from "../../ui/Tag";
-import { BookingResponse } from "../../interfaces";
+import { BookingKa } from "../../interfaces";
 import { format, isToday } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 
@@ -46,17 +46,14 @@ const Amount = styled.div`
 `;
 
 interface BookingRowProps {
-  booking: BookingResponse;
+  booking: BookingKa;
 }
 
 function BookingRow({
   booking: {
-    id: bookingId,
-    created_at,
     startDate,
     endDate,
     numNights,
-    numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },

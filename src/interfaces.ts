@@ -7,6 +7,8 @@ export interface CabinType {
   maxCapacity?: number;
   name?: string;
   regularPrice?: number;
+  cabins: Cabins;
+  guests: Guests;
 }
 
 export interface SettingsType {
@@ -49,6 +51,11 @@ export interface BookingType {
 }
 
 export interface BookingResponse {
+  data: BookingKa[];
+  count: number;
+}
+
+export interface BookingKa {
   id?: number;
   created_at?: string;
   startDate?: string;
