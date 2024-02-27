@@ -13,6 +13,7 @@ import { useBooking } from "./useBooking.js";
 import Spinner from "../../ui/Spinner.js";
 import BookingDataBox from "./BookingDataBox.js";
 import { BookingKa } from "../../interfaces.js";
+import { useNavigate } from "react-router-dom";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ function BookingDetail() {
   const moveBack = useMoveBack();
   const { booking, isLoading } = useBooking();
   const { status, id: bookingId } = booking! ?? {};
+  const navigate = useNavigate();
 
   const statusToTagName = {
     "un-confirmed": "blue",
@@ -46,6 +48,12 @@ function BookingDetail() {
       <BookingDataBox booking={booking as unknown as BookingKa} />
 
       <ButtonGroup>
+        {status === "un-confirmed" && (
+          <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
+            Check-In
+          </Button>
+        )}
+
         {status === "unconfirmed" && (
           <Button onClick={moveBack}>Check in</Button>
         )}

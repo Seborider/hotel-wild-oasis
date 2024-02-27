@@ -12,7 +12,7 @@ import {
 } from "react-icons/hi2";
 import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
-import { BookingKa } from "../../interfaces";
+import { BookingType } from "../../interfaces";
 
 interface PriceProps {
   isPaid: boolean;
@@ -21,7 +21,7 @@ interface PriceProps {
 const StyledBookingDataBox = styled.section`
   padding: 3.2rem 4rem;
   overflow: hidden;
-  background-color: var(--color-brand-50);
+  background-color: var(--color-grey-0);
 `;
 
 const Header = styled.header`
@@ -110,7 +110,7 @@ const Footer = styled.footer`
 const P = styled.p<PriceProps>``;
 
 interface BookingDataProps {
-  booking: BookingKa;
+  booking: BookingType;
 }
 
 function BookingDataBox({ booking }: BookingDataProps) {
@@ -128,7 +128,7 @@ function BookingDataBox({ booking }: BookingDataProps) {
     isPaid,
     guests: { fullName: guestName, email, country, countryFlag, nationalID },
     cabins: { name: cabinName },
-  } = booking;
+  } = booking || ({} as BookingType);
 
   return (
     <StyledBookingDataBox>
@@ -174,7 +174,7 @@ function BookingDataBox({ booking }: BookingDataProps) {
           {hasBreakfast ? "Yes" : "No"}
         </DataItem>
 
-        <Price isPaid={isPaid}>
+        <Price isPaid={isPaid!}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(Number(totalPrice))}
 
@@ -184,7 +184,7 @@ function BookingDataBox({ booking }: BookingDataProps) {
               )} breakfast)`}
           </DataItem>
 
-          <P isPaid={isPaid}>{isPaid ? "Paid" : "Will pay at property"}</P>
+          <P isPaid={isPaid!}>{isPaid ? "Paid" : "Will pay at property"}</P>
         </Price>
       </Section>
 

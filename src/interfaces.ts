@@ -48,6 +48,8 @@ export interface BookingType {
   observations?: string;
   cabinId: number;
   guestId: number;
+  cabins: Cabins;
+  guests: Guests;
 }
 
 export interface BookingResponse {
@@ -63,12 +65,12 @@ export interface BookingKa {
   numNights?: number;
   numGuests?: number;
   status?: string;
-  totalPrice?: string;
+  totalPrice?: number;
   cabinPrice?: number;
   extrasPrice?: number;
   hasBreakfast?: boolean;
   observations?: "string";
-  isPaid: boolean;
+  isPaid?: boolean;
   cabins: Cabins;
   guests: Guests;
 }

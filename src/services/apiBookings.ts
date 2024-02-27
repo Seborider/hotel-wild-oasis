@@ -65,7 +65,6 @@ export async function getBooking(id: number) {
     console.error(error);
     throw new Error("Booking not found");
   }
-  console.log(data);
 
   return data as BookingType;
 }
@@ -121,10 +120,20 @@ export async function getStaysTodayActivity() {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
-  return data as BookingResponse;
+  return data as unknown as BookingResponse;
 }
 
-export async function updateBooking(id: number, obj: BookingResponse) {
+interface UpdateObject {
+  status: string;
+  isPaid: boolean;
+  breakfast?: {
+    hasBreakfast?: boolean;
+    extrasPrice?: number;
+    totalPrice?: number;
+  };
+}
+
+export async function updateBooking(id: number, obj: UpdateObject) {
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)

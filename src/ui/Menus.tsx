@@ -142,7 +142,6 @@ function Toggle({ id }: ToggleProps) {
     } else {
       open(id);
     }
-    console.log(openId, id);
   }
 
   return (
