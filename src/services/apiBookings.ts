@@ -125,7 +125,7 @@ export async function getStaysTodayActivity() {
 
 interface UpdateObject {
   status: string;
-  isPaid: boolean;
+  isPaid?: boolean;
   breakfast?: {
     hasBreakfast?: boolean;
     extrasPrice?: number;

@@ -22,6 +22,7 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
   icon: ReactNode;
+  disabled?: boolean;
 }
 
 interface MenusContextProps {

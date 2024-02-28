@@ -6,8 +6,9 @@ import { format, isToday } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
 import { useNavigate } from "react-router-dom";
-import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
+import { useCheckOut } from "../check-in-out/useCheckout";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -53,6 +54,7 @@ function BookingRow({
   },
 }: BookingRowProps) {
   const navigate = useNavigate();
+  const { checkout, isCheckingOut } = useCheckOut();
 
   const statusToTagName = {
     "un-confirmed": "blue",
@@ -101,6 +103,16 @@ function BookingRow({
                 onClick={() => navigate(`/checkin/${bookingId}`)}
               >
                 Check-In
+              </Menus.Button>
+            )}
+
+            {status === "checked-in" && (
+              <Menus.Button
+                icon={<HiArrowUpOnSquare />}
+                onClick={() => checkout(bookingId!)}
+                disabled={isCheckingOut}
+              >
+                Check-Out
               </Menus.Button>
             )}
           </Menus.List>
