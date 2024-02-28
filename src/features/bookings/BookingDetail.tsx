@@ -15,6 +15,9 @@ import BookingDataBox from "./BookingDataBox.js";
 import { BookingKa } from "../../interfaces.js";
 import { useNavigate } from "react-router-dom";
 import { useCheckOut } from "../check-in-out/useCheckout.js";
+import Modal from "../../ui/Modal.js";
+import ConfirmDelete from "../../ui/ConfirmDelete.js";
+import { useDeleteBooking } from "./useDeleteBooking.js";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -28,6 +31,7 @@ function BookingDetail() {
   const { status, id: bookingId } = booking! ?? {};
   const navigate = useNavigate();
   const { checkout, isCheckingOut } = useCheckOut();
+  const { isDeleting, deleteBooking } = useDeleteBooking();
 
   const statusToTagName = {
     "un-confirmed": "blue",
@@ -65,6 +69,22 @@ function BookingDetail() {
             Check-Out
           </Button>
         )}
+
+        <Modal>
+          <Modal.Open opens="delete">
+            <Button $variation="danger">Delete Booking</Button>
+          </Modal.Open>
+
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              resource="booking"
+              onConfirm={() => {
+                deleteBooking(bookingId!, { onSettled: () => navigate(-1) });
+              }}
+              disabled={isDeleting}
+            />
+          </Modal.Window>
+        </Modal>
 
         <Button $variation="secondary" onClick={moveBack}>
           Back
