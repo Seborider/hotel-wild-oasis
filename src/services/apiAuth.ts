@@ -12,6 +12,27 @@ export interface LoginPromise {
   weakPassword?: WeakPassword | undefined;
 }
 
+interface SignupProps extends UserAttributes {
+  fullName?: string;
+}
+
+export async function signup({ fullName, email, password }: SignupProps) {
+  if (!email || !password) throw new Error("Email an password are required.");
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      fullName,
+      avatar: "",
+    },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 export async function login({
   email,
   password,

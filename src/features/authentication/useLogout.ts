@@ -12,7 +12,7 @@ export default function useLogout() {
     onSuccess: () => {
       queryClient.removeQueries();
       navigate("/login", { replace: true });
-      toast.success("Logout successfull");
+      toast.success("Logout successfull!");
     },
   });
   return { logout, isLoading };
