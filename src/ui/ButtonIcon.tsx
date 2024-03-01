@@ -1,6 +1,12 @@
+import { ReactNode } from "react";
 import styled from "styled-components";
 
-const ButtonIcon = styled.button`
+interface ButtonIconProps {
+  children: ReactNode;
+  disabled?: boolean;
+}
+
+const StyledButtonIcon = styled.button`
   background: none;
   border: none;
   padding: 0.6rem;
@@ -18,4 +24,6 @@ const ButtonIcon = styled.button`
   }
 `;
 
-export default ButtonIcon;
+export default function ButtonIcon({ children }: ButtonIconProps) {
+  return <StyledButtonIcon>{children}</StyledButtonIcon>;
+}

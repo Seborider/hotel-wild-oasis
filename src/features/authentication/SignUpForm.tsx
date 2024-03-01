@@ -80,7 +80,7 @@ export default function SignUpForm() {
         <Button $variation="secondary" type="reset" disabled={isLoading}>
           Cancel
         </Button>
-        <Button $variation="primary" disabled={isLoading}>
+        <Button $variation="primary" type="submit" disabled={isLoading}>
           Create new user
         </Button>
       </FormRow>

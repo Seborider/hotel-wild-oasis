@@ -23,12 +23,18 @@ export async function signup({ fullName, email, password }: SignupProps) {
     email,
     password,
     options: {
-      fullName,
-      avatar: "",
+      data: {
+        fullName,
+        avatar: "",
+      },
     },
   });
 
   if (error) throw new Error(error.message);
+
+  // const { data: profileData, error: profileError } = await supabase
+  //   .from("users")
+  //   .insert([{ user_id: user.id, full_name: fullName }]);
 
   return data;
 }
