@@ -1,34 +1,38 @@
-import styled from "styled-components";
-import Button from "./Button";
-import { HiOutlineUser } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
-import Logout from "../features/authentication/Logout";
+import styled from 'styled-components'
+import Button from './Button'
+import { HiOutlineUser } from 'react-icons/hi2'
+import { useNavigate } from 'react-router-dom'
+import Logout from '../features/authentication/Logout'
+import DarkModeToggle from './DarkModeToggle'
 
 const StyledHeaderMenu = styled.ul`
-  display: flex;
-  gap: 1rem;
-`;
+    display: flex;
+    gap: 1rem;
+`
 
 export default function HeaderMenu() {
-  const navigate = useNavigate();
+    const navigate = useNavigate()
 
-  const handleNavigationClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
-    navigate("/account");
-  };
+    const handleNavigationClick = (
+        event: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        event.preventDefault()
+        navigate('/account')
+    }
 
-  return (
-    <StyledHeaderMenu>
-      <li>
-        <Button $variation="secondary" onClick={handleNavigationClick}>
-          <HiOutlineUser />
-        </Button>
-      </li>
-      <li>
-        <Logout />
-      </li>
-    </StyledHeaderMenu>
-  );
+    return (
+        <StyledHeaderMenu>
+            <li>
+                <Button $variation="secondary" onClick={handleNavigationClick}>
+                    <HiOutlineUser />
+                </Button>
+            </li>
+            <li>
+                <DarkModeToggle />
+            </li>
+            <li>
+                <Logout />
+            </li>
+        </StyledHeaderMenu>
+    )
 }
