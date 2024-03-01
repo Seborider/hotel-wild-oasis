@@ -1,30 +1,30 @@
-import styled, { css } from "styled-components";
-import React from "react";
+import styled, { css } from 'styled-components'
+import React from 'react'
 
 interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
-  type?: "horizontal" | "vertical";
+    type?: 'horizontal' | 'vertical'
 }
 
 const Row = styled.div<RowProps>`
-  display: flex;
+    display: flex;
 
-  ${(props) =>
-    props.type === "horizontal" &&
-    css`
-      justify-content: space-between;
-      align-items: center;
-    `}
+    ${(props) =>
+        props.type === 'horizontal' &&
+        css`
+            justify-content: space-between;
+            align-items: center;
+        `}
 
-  ${(props) =>
-    props.type === "vertical" &&
-    css`
-      flex-direction: column;
-      gap: 1.6rem;
-    `}
-`;
+    ${(props) =>
+        props.type === 'vertical' &&
+        css`
+            flex-direction: column;
+            gap: 1.6rem;
+        `}
+`
 
 Row.defaultProps = {
-  type: "vertical",
-};
+    type: 'vertical',
+}
 
-export default Row;
+export default Row
