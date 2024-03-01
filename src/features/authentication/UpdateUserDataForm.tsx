@@ -7,29 +7,30 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import useUser from "./useUser";
+import useUpdateUser from "./useUpdateUser";
 
 function UpdateUserDataForm() {
-  const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
-    },
-  } = useUser();
+  const { user } = useUser();
+
+  const email = user?.email ?? "";
+  const currentFullName =
+    (user?.user_metadata?.fullName as string) || ("" as string);
 
   const { updateUser, isUpdating } = useUpdateUser();
 
   const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState<File | null>(null);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!fullName) return;
+
     updateUser(
-      { fullName, avatar },
+      { fullName, avatar: avatar ?? undefined },
       {
         onSuccess: () => {
           setAvatar(null);
-          e.target.reset();
+          (e.target as HTMLFormElement).reset();
         },
       },
     );
@@ -68,9 +69,9 @@ function UpdateUserDataForm() {
       <FormRow>
         <Button
           type="reset"
-          variation="secondary"
-          disabled={isUpdating}
+          $variation="secondary"
           onClick={handleCancel}
+          disabled={isUpdating}
         >
           Cancel
         </Button>
