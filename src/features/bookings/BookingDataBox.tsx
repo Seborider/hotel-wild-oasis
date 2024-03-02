@@ -22,6 +22,7 @@ const StyledBookingDataBox = styled.section`
     padding: 3.2rem 4rem;
     overflow: hidden;
     background-color: var(--color-grey-0);
+    border-radius: var(--border-radius-lg);
 `
 
 const Header = styled.header`

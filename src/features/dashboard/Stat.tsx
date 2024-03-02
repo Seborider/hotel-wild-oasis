@@ -7,6 +7,8 @@ const StyledStat = styled.div`
     grid-template-columns: 6.4rem 1fr;
     grid-template-rows: auto auto;
     gap: 0.4rem 1.6rem;
+    background-color: var(--color-grey-0);
+    border-radius: var(--border-radius-lg);
 `
 
 const Icon = styled.div`
