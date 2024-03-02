@@ -69,7 +69,7 @@ export interface BookingKa {
     cabinPrice?: number
     extrasPrice?: number
     hasBreakfast?: boolean
-    observations?: 'string'
+    observations?: string
     isPaid?: boolean
     cabins: Cabins
     guests: Guests

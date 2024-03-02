@@ -82,14 +82,13 @@ export async function getBookingsAfterDate(date: string) {
         throw new Error('Bookings could not get loaded')
     }
 
-    return data
+    return data as BookingType[]
 }
 
 // Returns all STAYS that are were created after the given date
 export async function getStaysAfterDate(date: string) {
     const { data, error } = await supabase
         .from('bookings')
-        // .select('*')
         .select('*, guests(fullName)')
         .gte('startDate', date)
         .lte('startDate', getToday())
@@ -99,7 +98,7 @@ export async function getStaysAfterDate(date: string) {
         throw new Error('Bookings could not get loaded')
     }
 
-    return data as BookingResponse
+    return data as BookingType[]
 }
 
 // Activity means that there is a check in or a check out today
