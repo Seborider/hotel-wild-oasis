@@ -4,6 +4,7 @@ import React from 'react'
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     size?: 'small' | 'medium' | 'large'
     $variation?: 'primary' | 'secondary' | 'danger'
+    as?: unknown
 }
 
 const sizes = {

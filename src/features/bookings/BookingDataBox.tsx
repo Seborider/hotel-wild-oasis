@@ -36,6 +36,7 @@ const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-radius: var(--border-radius-lg);
 
     svg {
         height: 3.2rem;

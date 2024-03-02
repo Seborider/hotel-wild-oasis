@@ -119,7 +119,7 @@ export async function getStaysTodayActivity() {
         console.error(error)
         throw new Error('Bookings could not get loaded')
     }
-    return data as unknown as BookingResponse
+    return data as unknown as BookingType[]
 }
 
 interface UpdateObject {
@@ -148,7 +148,6 @@ export async function updateBooking(id: number, obj: UpdateObject) {
 }
 
 export async function deleteBooking(id: number) {
-    // REMEMBER RLS POLICIES
     const { data, error } = await supabase
         .from('bookings')
         .delete()
