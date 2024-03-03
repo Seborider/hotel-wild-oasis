@@ -5,19 +5,18 @@ import Heading from '../../ui/Heading'
 import Tag from '../../ui/Tag'
 import ButtonGroup from '../../ui/ButtonGroup'
 import Button from '../../ui/Button'
-
-import { useMoveBack } from '../../hooks/useMoveBack.js'
-
 import ButtonText from '../../ui/ButtonText'
+import Spinner from '../../ui/Spinner'
+import Modal from '../../ui/Modal'
+import ConfirmDelete from '../../ui/ConfirmDelete'
+import BookingDataBox from './BookingDataBox'
+
+import { useMoveBack } from '../../hooks/useMoveBack'
 import { useBooking } from './useBooking.js'
-import Spinner from '../../ui/Spinner.js'
-import BookingDataBox from './BookingDataBox.js'
-import { BookingKa } from '../../interfaces.js'
 import { useNavigate } from 'react-router-dom'
-import { useCheckOut } from '../check-in-out/useCheckout.js'
-import Modal from '../../ui/Modal.js'
-import ConfirmDelete from '../../ui/ConfirmDelete.js'
-import { useDeleteBooking } from './useDeleteBooking.js'
+import { useCheckOut } from '../check-in-out/useCheckOut'
+import { useDeleteBooking } from './useDeleteBooking'
+import Empty from '../../ui/Empty'
 
 const HeadingGroup = styled.div`
     display: flex;
@@ -40,6 +39,7 @@ function BookingDetail() {
     }
 
     if (isLoading) return <Spinner />
+    if (!booking) return <Empty resource={String(booking)} />
 
     return (
         <>
@@ -47,13 +47,13 @@ function BookingDetail() {
                 <HeadingGroup>
                     <Heading as="h1">Booking {bookingId}</Heading>
                     <Tag type={statusToTagName[status]}>
-                        {status.replace('-', ' ')}
+                        {status!.replace('-', ' ')}
                     </Tag>
                 </HeadingGroup>
                 <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
             </Row>
 
-            <BookingDataBox booking={booking as unknown as BookingKa} />
+            <BookingDataBox booking={booking!} />
 
             <ButtonGroup>
                 {status === 'un-confirmed' && (
