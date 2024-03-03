@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+import Heading from './Heading'
+import GlobalStyles from '../styles/GlobalStyles'
+import Button from './Button'
 
 const StyledErrorFallback = styled.main`
     height: 100vh;
@@ -10,7 +13,6 @@ const StyledErrorFallback = styled.main`
 `
 
 const Box = styled.div`
-    /* Box */
     background-color: var(--color-grey-0);
     border: 1px solid var(--color-grey-100);
     border-radius: var(--border-radius-md);
@@ -29,13 +31,26 @@ const Box = styled.div`
     }
 `
 
-export default function ErrorFallback() {
+interface ErrorFallbackProps {
+    error: Error
+    resetErrorBoundary: React.MouseEventHandler<HTMLButtonElement>
+}
+
+export default function ErrorFallback({
+    error,
+    resetErrorBoundary,
+}: ErrorFallbackProps) {
     return (
-        <StyledErrorFallback>
-            <Box>
-                <h1>Ooops...something is wrong</h1>
-                <p>Please try again later</p>
-            </Box>
-        </StyledErrorFallback>
+        <>
+            <GlobalStyles />
+            <StyledErrorFallback>
+                <Box>
+                    <Heading as="h1">Ooops...something is wrong 🥸 </Heading>
+                    <p>{error.message}</p>
+                    <p>Please try again</p>
+                    <Button onClick={resetErrorBoundary}>Try again</Button>
+                </Box>
+            </StyledErrorFallback>
+        </>
     )
 }
