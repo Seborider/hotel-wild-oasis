@@ -56,7 +56,7 @@ function CheckinBooking() {
                 },
             })
 
-        if (booking) checkin({ bookingId: booking.id, breakfast: {} })
+        if (booking?.id) checkin({ bookingId: booking.id, breakfast: {} })
     }
 
     return (
@@ -95,7 +95,7 @@ function CheckinBooking() {
                     amount of{' '}
                     {!addBreakfast
                         ? formatCurrency(Number(booking?.totalPrice))
-                        : `${formatCurrency(optionalBreakfastPrice + booking.totalPrice!)} (${formatCurrency(Number(booking?.totalPrice))} + ${formatCurrency(optionalBreakfastPrice)})`}
+                        : `${formatCurrency(optionalBreakfastPrice + booking!.totalPrice!)} (${formatCurrency(Number(booking?.totalPrice))} + ${formatCurrency(optionalBreakfastPrice)})`}
                     .
                 </Checkbox>
             </Box>

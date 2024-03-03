@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Options } from './SortBy'
+import { ChangeEvent } from 'react'
 
 const StyledSelect = styled.select<{ type?: string }>`
     font-size: 1.4rem;
